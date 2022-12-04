@@ -9,8 +9,7 @@ venv: ## Make a new virtual environment
 	pipenv shell
 
 freeze: ## Pin current dependencies
-	pipenv requirements > requirements.txt
-	cp requirements.txt backend/
+	pipenv requirements > backend/requirements.txt
 
 .PHONY: install
 install: ## Install or update dependencies
