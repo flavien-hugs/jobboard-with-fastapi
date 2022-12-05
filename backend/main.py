@@ -5,7 +5,7 @@ from .core.config import settings
 from .api.page.home import page_router
 
 from .db.session import engine
-from .db.base_class import Base
+from .db.base import Base
 
 
 def include_router(app):
@@ -17,6 +17,7 @@ def configure_static(app):
 
 
 def create_tables():
+    print("create database tables")
     Base.metadata.create_all(bind=engine)
 
 
