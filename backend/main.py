@@ -1,10 +1,17 @@
 from fastapi import FastAPI
-from .core import settings
 
-app = FastAPI(title=settings.PROJECT_NAME, version=settings.PROJECT_VERSION)
+from .core.config import settings
+from .api.page.home import page_router
 
 
-@app.get("/")
-def hello_api():
-    response = {"msg": "Hello API"}
-    return response
+def include_router(app):
+    app.include_router(page_router)
+
+
+def start_application():
+    app = FastAPI(title=settings.PROJECT_NAME, version=settings.PROJECT_VERSION)
+    include_router(app)
+    return app
+
+
+app = start_application()
