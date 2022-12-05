@@ -1,8 +1,8 @@
 from sqlalchemy.orm import Session
 
 from ..models.users import User
-from ...core.hashing import Hasher
-from ...schemas.users import UserCreate
+from backend.core.hashing import Hasher
+from backend.schemas.users import UserCreate
 
 
 def create_new_user(user: UserCreate, db: Session):
@@ -13,7 +13,6 @@ def create_new_user(user: UserCreate, db: Session):
         is_active=True,
         is_superuser=False,
     )
-
     db.add(user)
     db.commit()
     db.refresh(user)
