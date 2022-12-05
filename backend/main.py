@@ -1,7 +1,7 @@
 from fastapi import FastAPI
-from core.config import settings
+from .core import settings
 
-app = FastAPI(title=settings.PROJEC_NAME, version=settings.PROJECT_VERSION)
+app = FastAPI(title=settings.PROJECT_NAME, version=settings.PROJECT_VERSION)
 
 
 @app.get("/")
