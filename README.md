@@ -18,7 +18,9 @@ git clone https://github.com/flavienn-hugs/jobboard-with-fastapi.git
 ## Test the project locally
 
 ```
-Run: make runserver
+run: make runserver
+or
+uvicorn backend.main:app --reload
 ```
 
 ## Installing the dependencies
