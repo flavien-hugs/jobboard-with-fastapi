@@ -1,15 +1,12 @@
-from typing import Any
-from typing import Generator
+import os
+import sys
+from typing import Any, Generator
 
 import pytest
 from fastapi import FastAPI
-from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-
-
-import sys
-import os
+from fastapi.testclient import TestClient
 
 from db.base import Base
 from db.session import get_db
