@@ -4,6 +4,8 @@
 
 - Python 3.10+
 - pipenv ou pip
+- FastAPI
+- Uvicorn (server)
 - Pytest
 - sqlalchemy
 - Alembic
