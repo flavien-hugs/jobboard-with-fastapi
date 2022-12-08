@@ -1,16 +1,16 @@
 import os
 import sys
-from typing import Any, Generator
+from typing import Any
+from typing import Generator
 
 import pytest
-from fastapi import FastAPI
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from fastapi.testclient import TestClient
-
+from api.base import api_router
 from db.base import Base
 from db.session import get_db
-from api.base import api_router
+from fastapi import FastAPI
+from fastapi.testclient import TestClient
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
