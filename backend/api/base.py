@@ -1,6 +1,8 @@
 from fastapi import APIRouter
 
-from .version1 import route_users, route_jobs, route_pages
+from .version1 import route_jobs
+from .version1 import route_pages
+from .version1 import route_users
 
 
 api_router = APIRouter()

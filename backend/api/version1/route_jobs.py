@@ -1,9 +1,14 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter
+from fastapi import Depends
+from fastapi import HTTPException
+from fastapi import status
 from sqlalchemy.orm import Session
 
-from backend.db.session import get_db
-from backend.schemas.jobs import JobCreate, ShowJob
 from backend.db.repository.jobs import create_new_job
+from backend.db.repository.jobs import retreive_job
+from backend.db.session import get_db
+from backend.schemas.jobs import JobCreate
+from backend.schemas.jobs import ShowJob
 
 
 job_router = APIRouter()
@@ -13,4 +18,14 @@ job_router = APIRouter()
 def create_job(job: JobCreate, db: Session = Depends(get_db)):
     current_user = 1
     job = create_new_job(job=job, db=db, job_owner_id=current_user)
+    return job
+
+
+def read_job(id: int, db: Session = Depends(get_db)):
+    job = retreive_job(id=id, db=db)
+    if not job:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Job with this id {id} does not exist",
+        )
     return job
