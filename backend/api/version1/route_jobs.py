@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 from backend.db.repository.jobs import create_new_job
 from backend.db.repository.jobs import list_jobs
 from backend.db.repository.jobs import retreive_job
+from backend.db.repository.jobs import update_job_by_id
 from backend.db.session import get_db
 from backend.schemas.jobs import JobCreate
 from backend.schemas.jobs import ShowJob
@@ -37,3 +38,14 @@ def read_job(id: int, db: Session = Depends(get_db)):
 def read_jobs(db: Session = Depends(get_db)):
     jobs = list_jobs(db=db)
     return jobs
+
+
+@job_router.put("update/{id}")
+def update_job(id: int, job: JobCreate, db: Session = Depends(get_db)):
+    current_user = 1
+    message = update_job_by_id(id=id, job=job, db=db, job_owner_id=current_user)
+    if not message:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail=f"Job with id {id} not found"
+        )
+    return {"message": "Successfully updated data."}
