@@ -5,6 +5,7 @@ from fastapi import status
 from sqlalchemy.orm import Session
 
 from backend.db.repository.jobs import create_new_job
+from backend.db.repository.jobs import list_jobs
 from backend.db.repository.jobs import retreive_job
 from backend.db.session import get_db
 from backend.schemas.jobs import JobCreate
@@ -21,6 +22,7 @@ def create_job(job: JobCreate, db: Session = Depends(get_db)):
     return job
 
 
+@job_router.post("/get/{id}/", response_model=ShowJob)
 def read_job(id: int, db: Session = Depends(get_db)):
     job = retreive_job(id=id, db=db)
     if not job:
@@ -29,3 +31,9 @@ def read_job(id: int, db: Session = Depends(get_db)):
             detail=f"Job with this id {id} does not exist",
         )
     return job
+
+
+@job_router.post("/all", response_model=ShowJob)
+def read_jobs(db: Session = Depends(get_db)):
+    jobs = list_jobs(db=db)
+    return jobs
