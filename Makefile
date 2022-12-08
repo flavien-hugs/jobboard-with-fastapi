@@ -17,7 +17,7 @@ install: ## Install or update dependencies
 
 .PHONY: runserver
 runserver: ## Run the server
-	uvicorn backend.main:app --reload
+	uvicorn backend.main:app --port 8090 --reload
 
 .PHONY: kill-process
 kill-process: ## Kill process the server
