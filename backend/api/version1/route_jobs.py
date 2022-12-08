@@ -1,3 +1,5 @@
+from typing import List
+
 from fastapi import APIRouter
 from fastapi import Depends
 from fastapi import HTTPException
@@ -24,7 +26,7 @@ def create_job(job: JobCreate, db: Session = Depends(get_db)):
     return job
 
 
-@job_router.post("/get/{id}/", response_model=ShowJob)
+@job_router.get("/get/{id}/", response_model=ShowJob)
 def read_job(id: int, db: Session = Depends(get_db)):
     job = retreive_job(id=id, db=db)
     if not job:
@@ -35,7 +37,7 @@ def read_job(id: int, db: Session = Depends(get_db)):
     return job
 
 
-@job_router.post("/all", response_model=ShowJob)
+@job_router.get("/all/", response_model=List[ShowJob])
 def read_jobs(db: Session = Depends(get_db)):
     jobs = list_jobs(db=db)
     return jobs
