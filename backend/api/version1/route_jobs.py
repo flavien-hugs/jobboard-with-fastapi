@@ -40,7 +40,7 @@ def read_jobs(db: Session = Depends(get_db)):
     return jobs
 
 
-@job_router.put("update/{id}")
+@job_router.put("/update/{id}")
 def update_job(id: int, job: JobCreate, db: Session = Depends(get_db)):
     current_user = 1
     message = update_job_by_id(id=id, job=job, db=db, job_owner_id=current_user)
