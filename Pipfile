@@ -13,6 +13,7 @@ psycopg2-binary = "*"
 python-dotenv = "*"
 pydantic = {extras = ["email"], version = "*"}
 passlib = {extras = ["bcrypt"], version = "*"}
+python-jose = "*"
 
 [dev-packages]
 flake8 = "*"
