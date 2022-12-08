@@ -3,9 +3,8 @@ from fastapi.staticfiles import StaticFiles
 
 from .api.base import api_router
 from .core.config import settings
-
-from .db.session import engine
 from .db.base import Base
+from .db.session import engine
 
 
 def include_router(app):
