@@ -52,6 +52,7 @@ repos:
         - "--select=B,C,E,F,W,T4,B9"
         - "--ignore=E203,E266,E501,W503,F405"
 
+# reorder python imports
 - repo: https://github.com/asottile/reorder_python_imports
   rev: v2.3.6
   hooks:
