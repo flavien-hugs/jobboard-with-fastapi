@@ -20,8 +20,8 @@ from backend.schemas.tokens import Token
 login_router = APIRouter()
 
 
-def authenticate_user(email: str, password: str, db: Session):
-    user = get_user(email=email, db=db)
+def authenticate_user(username: str, password: str, db: Session):
+    user = get_user(username=username, db=db)
     print(user)
     if not user:
         return False
@@ -30,24 +30,24 @@ def authenticate_user(email: str, password: str, db: Session):
     return user
 
 
-@login_router.post("/token/", response_model=Token)
+@login_router.post("/", response_model=Token)
 def login_for_access_token(
     form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)
 ):
-    user = authenticate_user(form_data.email, form_data.password, db)
+    user = authenticate_user(form_data.username, form_data.password, db)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect email or password",
+            detail="Incorrect username or password",
         )
-    access_token_expires = timedelta(days=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
         data={"sub": user.email}, expires_delta=access_token_expires
     )
     return {"access_token": access_token, "token_type": "bearer"}
 
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/login/token")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/login/")
 
 
 def get_current_user_from_token(
@@ -61,13 +61,13 @@ def get_current_user_from_token(
         payload = jwt.decode(
             token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM]
         )
-        email: str = payload.get("sub")
-        print("email/email extracted is ", email)
-        if email is None:
+        username: str = payload.get("sub")
+        print(f"username/email extracted is {username}")
+        if username is None:
             raise credentials_exception
     except JWTError:
         raise credentials_exception
-    user = get_user(email=email, db=db)
+    user = get_user(username=username, db=db)
     if user is None:
         raise credentials_exception
     return user
