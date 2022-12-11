@@ -4,5 +4,5 @@ from backend.db.models.users import User
 
 
 def get_user(username: str, db: Session):
-    user = db.query(User).filter(User.username == username).first()
+    user = db.query(User).filter(User.email == username).first()
     return user
