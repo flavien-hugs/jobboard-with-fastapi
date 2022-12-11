@@ -3,7 +3,7 @@ import json
 from fastapi import status
 
 
-def test_create_job(client):
+def test_create_job(client, normal_user_token_headers):
     data = {
         "job_title": "SDE super",
         "job_company": "doogle",
