@@ -13,13 +13,13 @@ from backend.schemas.users import UserCreate
 users_router = APIRouter()
 
 
-@users_router.get("/", response_model=List[ShowUser])
+@users_router.get("/", summary="Get all users", response_model=List[ShowUser])
 def read_users(db: Session = Depends(get_db)):
     users = list_users(db=db)
     return users
 
 
-@users_router.post("/register/", response_model=ShowUser)
+@users_router.post("/register/", summary="Create new user", response_model=ShowUser)
 def create_user(user: UserCreate, db: Session = Depends(get_db)):
     user = create_new_user(user=user, db=db)
     return user

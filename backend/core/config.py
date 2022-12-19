@@ -19,6 +19,7 @@ class Settings:
 
     ALGORITHM = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES = 60
+    REFRESH_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7
     SECRET_KEY: str = os.getenv("SECRET_KEY")
 
     TEST_USER_EMAIL = "flavienhugs@pm.me"

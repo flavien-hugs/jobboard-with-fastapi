@@ -18,7 +18,7 @@ def create_new_job(job: JobCreate, db: Session, job_owner_id: int):
 
 
 def list_jobs(db: Session):
-    jobs = db.query(Job).all()
+    jobs = db.query(Job).filter(Job.job_is_active).all()
     return jobs
 
 

@@ -5,10 +5,12 @@ from .api.base import api_router
 from .core.config import settings
 from .db.base import Base
 from .db.session import engine
+from .webapps.base import webapp_router
 
 
 def include_router(app):
     app.include_router(api_router)
+    app.include_router(webapp_router)
 
 
 def configure_static(app):
